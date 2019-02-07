@@ -1,12 +1,10 @@
-workflow "New workflow" {
-  on = "push"
-  resolves = ["Hello World"]
+workflow "Dangerfile JS Eval" {
+  on = "pull_request"
+  resolves = "Danger JS"
 }
 
-action "Hello World" {
-  uses = "./ci/action-a"
-  env = {
-    MY_NAME = "Mona"
-  }
-  args = "\"Hello world, I'm $MY_NAME!\""
+action "Danger JS" {
+  uses = "danger/danger-js@master"
+  secrets = ["GITHUB_TOKEN"]
+  args = "--dangerfile \"storybooks/storybook/.ci/danger/dangerfile.js\""
 }
